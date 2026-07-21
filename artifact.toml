@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/parts-finder/"
+title = "Universal Power Tool Parts Finder"
+version = "1.0.0"
+id = "artifacts/power-tool-parts-finder"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/parts-finder/" ]
+localPort = 21560
+
+[services.development]
+run = "pnpm --filter @workspace/power-tool-parts-finder run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/power-tool-parts-finder", "run", "build" ]
+publicDir = "artifacts/power-tool-parts-finder/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21560"
+BASE_PATH = "/parts-finder/"
